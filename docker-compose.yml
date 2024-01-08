@@ -1,0 +1,26 @@
+version: '3.9'
+
+services:
+
+  ssm_app:
+    container_name: ssm_app
+    build:
+      context: ./app
+      dockerfile: Dockerfile.dev
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./app:/usr/src/app
+      - /usr/src/app/node_modules
+
+  ssm_server:
+    container_name: ssm_server
+    build:
+      context: ./server
+      dockerfile: Dockerfile.dev
+    restart: always
+    volumes:
+      - ./server:/usr/src/srv
+      - /usr/src/srv/node_modules
+    ports:
+      - "3000:3000"
